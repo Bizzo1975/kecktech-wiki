@@ -1,0 +1,38 @@
+{
+  "name": "custom-wiki",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev -p 3011",
+    "build": "next build",
+    "start": "next start -p 3011",
+    "lint": "next lint",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate deploy",
+    "migrate:html": "node scripts/migrate-markdown-to-html.js",
+    "validate:articles": "node scripts/validate-articles.js",
+    "remediate:articles": "node scripts/remediate-unstructured-articles.js"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.6.0",
+    "dotenv": "^16.4.5",
+    "marked": "^15.0.12",
+    "next": "^15.2.0",
+    "node-fetch": "^2.7.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "sanitize-html": "^2.17.0",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.9",
+    "@types/react": "^19.0.11",
+    "@types/react-dom": "^19.0.4",
+    "@types/sanitize-html": "^2.13.0",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.5.3",
+    "prisma": "^6.6.0",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.8.2"
+  }
+}

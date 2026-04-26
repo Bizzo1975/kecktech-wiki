@@ -1,0 +1,198 @@
+{
+  "generatedAt": "2026-03-26T19:19:58.646Z",
+  "total": 519,
+  "passedStructuralValidation": 505,
+  "failedStructuralValidation": 14,
+  "failingByCategory": {
+    "Uncategorized": 14
+  },
+  "failures": [
+    {
+      "kbId": null,
+      "title": "Scam Prevention",
+      "slug": "scam-prevention",
+      "category": null,
+      "subcategory": null,
+      "issues": [
+        "Content length under 800 characters.",
+        "Missing summary/scope section.",
+        "Missing explicit workflow section.",
+        "Missing safety/security guidance.",
+        "Missing escalation criteria."
+      ]
+    },
+    {
+      "kbId": null,
+      "title": "Service Guide",
+      "slug": "service-guide",
+      "category": null,
+      "subcategory": null,
+      "issues": [
+        "Content length under 800 characters.",
+        "Missing summary/scope section.",
+        "Missing explicit workflow section.",
+        "Missing safety/security guidance.",
+        "Missing escalation criteria."
+      ]
+    },
+    {
+      "kbId": null,
+      "title": "Computer Basics",
+      "slug": "computer-basics",
+      "category": null,
+      "subcategory": null,
+      "issues": [
+        "Content length under 800 characters.",
+        "Missing summary/scope section.",
+        "Missing explicit workflow section.",
+        "Missing safety/security guidance.",
+        "Missing escalation criteria."
+      ]
+    },
+    {
+      "kbId": null,
+      "title": "Getting Started",
+      "slug": "getting-started",
+      "category": null,
+      "subcategory": null,
+      "issues": [
+        "Content length under 800 characters.",
+        "Missing summary/scope section.",
+        "Missing explicit workflow section.",
+        "Missing safety/security guidance.",
+        "Missing escalation criteria."
+      ]
+    },
+    {
+      "kbId": null,
+      "title": "Operations Dashboard — How to Use",
+      "slug": "operations",
+      "category": null,
+      "subcategory": null,
+      "issues": [
+        "Missing summary/scope section.",
+        "Missing explicit workflow section.",
+        "Missing safety/security guidance.",
+        "Missing escalation criteria."
+      ]
+    },
+    {
+      "kbId": null,
+      "title": "What is Hardware as a Service?",
+      "slug": "what-is-haas",
+      "category": null,
+      "subcategory": null,
+      "issues": [
+        "Content length under 800 characters.",
+        "Missing summary/scope section.",
+        "Missing explicit workflow section.",
+        "Missing escalation criteria."
+      ]
+    },
+    {
+      "kbId": null,
+      "title": "What is Managed IT?",
+      "slug": "what-is-managed-it",
+      "category": null,
+      "subcategory": null,
+      "issues": [
+        "Content length under 800 characters.",
+        "Missing summary/scope section.",
+        "Missing explicit workflow section.",
+        "Missing escalation criteria."
+      ]
+    },
+    {
+      "kbId": null,
+      "title": "Your Private Hosting",
+      "slug": "your-private-hosting",
+      "category": null,
+      "subcategory": null,
+      "issues": [
+        "Content length under 800 characters.",
+        "Missing summary/scope section.",
+        "Missing explicit workflow section.",
+        "Missing safety/security guidance.",
+        "Missing escalation criteria."
+      ]
+    },
+    {
+      "kbId": null,
+      "title": "AI Custom Apps — What We Build",
+      "slug": "ai-custom-apps",
+      "category": null,
+      "subcategory": null,
+      "issues": [
+        "Content length under 800 characters.",
+        "Missing summary/scope section.",
+        "Missing explicit workflow section.",
+        "Missing safety/security guidance.",
+        "Missing escalation criteria."
+      ]
+    },
+    {
+      "kbId": null,
+      "title": "Kecktech Help Center",
+      "slug": "home",
+      "category": null,
+      "subcategory": null,
+      "issues": [
+        "Missing summary/scope section.",
+        "Missing safety/security guidance.",
+        "Missing escalation criteria."
+      ]
+    },
+    {
+      "kbId": null,
+      "title": "Support Desk — How to Use",
+      "slug": "support-desk",
+      "category": null,
+      "subcategory": null,
+      "issues": [
+        "Missing summary/scope section.",
+        "Missing explicit workflow section.",
+        "Missing safety/security guidance.",
+        "Missing escalation criteria."
+      ]
+    },
+    {
+      "kbId": null,
+      "title": "Video Guides",
+      "slug": "video-guides",
+      "category": null,
+      "subcategory": null,
+      "issues": [
+        "Content length under 800 characters.",
+        "Missing summary/scope section.",
+        "Missing safety/security guidance.",
+        "Missing escalation criteria."
+      ]
+    },
+    {
+      "kbId": null,
+      "title": "Billing & Revenue - How to Use",
+      "slug": "billing",
+      "category": null,
+      "subcategory": null,
+      "issues": [
+        "Missing summary/scope section.",
+        "Missing explicit workflow section.",
+        "Missing safety/security guidance.",
+        "Missing escalation criteria."
+      ]
+    },
+    {
+      "kbId": null,
+      "title": "Sales & CRM — How to Use",
+      "slug": "sales",
+      "category": null,
+      "subcategory": null,
+      "issues": [
+        "Missing summary/scope section.",
+        "Missing explicit workflow section.",
+        "Missing safety/security guidance.",
+        "Missing escalation criteria."
+      ]
+    }
+  ]
+}

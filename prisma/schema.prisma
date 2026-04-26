@@ -1,0 +1,269 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum ContentType {
+  SHELF
+  BOOK
+  CHAPTER
+  PAGE
+}
+
+enum Visibility {
+  PUBLIC
+  AUTHENTICATED
+  PRIVATE
+}
+
+enum AuditAction {
+  CREATE
+  UPDATE
+  DELETE
+  RESTORE
+  LOGIN
+  IMPORT
+  PERMISSION_CHANGE
+}
+
+enum ReviewStatus {
+  DRAFT
+  IN_REVIEW
+  APPROVED
+  NEEDS_FIX
+}
+
+model User {
+  id            String        @id @default(uuid())
+  email         String        @unique
+  name          String
+  externalId    String?       @unique
+  roleBindings  RoleBinding[]
+  comments      Comment[]
+  revisions     PageRevision[] @relation("RevisionAuthor")
+  tokens        ApiToken[]
+  auditEntries  AuditLog[]     @relation("AuditActor")
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  deletedAt     DateTime?
+}
+
+model Role {
+  id          String        @id @default(uuid())
+  name        String        @unique
+  description String?
+  bindings    RoleBinding[]
+  permissions Permission[]
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  deletedAt   DateTime?
+}
+
+model Permission {
+  id          String   @id @default(uuid())
+  roleId      String
+  resource    String
+  action      String
+  conditions  Json?
+  role        Role     @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  deletedAt   DateTime?
+}
+
+model RoleBinding {
+  id          String   @id @default(uuid())
+  userId      String
+  roleId      String
+  scopeType   ContentType?
+  scopeId     String?
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role        Role     @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  deletedAt   DateTime?
+}
+
+model Shelf {
+  id           String   @id @default(uuid())
+  title        String
+  slug         String   @unique
+  description  String?
+  visibility   Visibility @default(PUBLIC)
+  sortOrder    Int      @default(0)
+  books        Book[]
+  tags         ContentTag[]
+  attachments  Attachment[] @relation("ShelfAttachments")
+  createdById  String?
+  updatedById  String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  deletedAt    DateTime?
+}
+
+model Book {
+  id           String   @id @default(uuid())
+  shelfId      String
+  title        String
+  slug         String
+  description  String?
+  visibility   Visibility @default(PUBLIC)
+  sortOrder    Int      @default(0)
+  shelf        Shelf    @relation(fields: [shelfId], references: [id], onDelete: Cascade)
+  chapters     Chapter[]
+  pages        Page[]   @relation("BookPages")
+  tags         ContentTag[]
+  attachments  Attachment[] @relation("BookAttachments")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  deletedAt    DateTime?
+
+  @@unique([shelfId, slug])
+}
+
+model Chapter {
+  id           String   @id @default(uuid())
+  bookId       String
+  title        String
+  slug         String
+  description  String?
+  visibility   Visibility @default(PUBLIC)
+  sortOrder    Int      @default(0)
+  book         Book     @relation(fields: [bookId], references: [id], onDelete: Cascade)
+  pages        Page[]
+  tags         ContentTag[]
+  attachments  Attachment[] @relation("ChapterAttachments")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  deletedAt    DateTime?
+
+  @@unique([bookId, slug])
+}
+
+model Page {
+  id            String    @id @default(uuid())
+  bookId        String
+  chapterId     String?
+  title         String
+  slug          String
+  markdown      String
+  html          String?
+  summary       String?
+  kbId          String?    @unique
+  category      String?
+  subcategory   String?
+  reviewStatus  ReviewStatus @default(DRAFT)
+  reviewNotes   String?
+  reviewerName  String?
+  reviewedAt    DateTime?
+  sourceReferences String?
+  factChecklist Json?
+  visibility    Visibility @default(PUBLIC)
+  publishedAt   DateTime?
+  book          Book      @relation("BookPages", fields: [bookId], references: [id], onDelete: Cascade)
+  chapter       Chapter?  @relation(fields: [chapterId], references: [id], onDelete: SetNull)
+  revisions     PageRevision[]
+  comments      Comment[]
+  tags          ContentTag[]
+  attachments   Attachment[] @relation("PageAttachments")
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  deletedAt     DateTime?
+
+  @@unique([bookId, slug])
+}
+
+model PageRevision {
+  id          String   @id @default(uuid())
+  pageId      String
+  version     Int
+  title       String
+  markdown    String
+  html        String?
+  authorId    String?
+  page        Page     @relation(fields: [pageId], references: [id], onDelete: Cascade)
+  author      User?    @relation("RevisionAuthor", fields: [authorId], references: [id], onDelete: SetNull)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([pageId, version])
+}
+
+model Comment {
+  id          String   @id @default(uuid())
+  pageId      String
+  authorId    String
+  body        String
+  parentId    String?
+  page        Page     @relation(fields: [pageId], references: [id], onDelete: Cascade)
+  author      User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  deletedAt   DateTime?
+}
+
+model ContentTag {
+  id          String   @id @default(uuid())
+  name        String
+  value       String?
+  shelfId     String?
+  bookId      String?
+  chapterId   String?
+  pageId      String?
+  shelf       Shelf?   @relation(fields: [shelfId], references: [id], onDelete: Cascade)
+  book        Book?    @relation(fields: [bookId], references: [id], onDelete: Cascade)
+  chapter     Chapter? @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+  page        Page?    @relation(fields: [pageId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  deletedAt   DateTime?
+}
+
+model Attachment {
+  id           String   @id @default(uuid())
+  fileName     String
+  mimeType     String
+  fileSize     Int
+  storagePath  String
+  shelfId      String?
+  bookId       String?
+  chapterId    String?
+  pageId       String?
+  shelf        Shelf?   @relation("ShelfAttachments", fields: [shelfId], references: [id], onDelete: Cascade)
+  book         Book?    @relation("BookAttachments", fields: [bookId], references: [id], onDelete: Cascade)
+  chapter      Chapter? @relation("ChapterAttachments", fields: [chapterId], references: [id], onDelete: Cascade)
+  page         Page?    @relation("PageAttachments", fields: [pageId], references: [id], onDelete: Cascade)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  deletedAt    DateTime?
+}
+
+model ApiToken {
+  id           String   @id @default(uuid())
+  userId       String
+  name         String
+  tokenHash    String   @unique
+  expiresAt    DateTime?
+  lastUsedAt   DateTime?
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  deletedAt    DateTime?
+}
+
+model AuditLog {
+  id           String      @id @default(uuid())
+  actorId      String?
+  action       AuditAction
+  resourceType ContentType?
+  resourceId   String?
+  payload      Json?
+  actor        User?       @relation("AuditActor", fields: [actorId], references: [id], onDelete: SetNull)
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+  deletedAt    DateTime?
+}

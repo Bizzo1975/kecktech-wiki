@@ -1,0 +1,803 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Open+Sans:wght@400;600&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --navy: #1E3A5F;
+  --charcoal: #4A4A4A;
+  --gold: #C07810;
+  --gold-dark: #a06510;
+  --off-white: #F4F7FB;
+  --teal: #0D6E6E;
+  --forest: #2E7D32;
+  --steel: #4A6887;
+  --violet: #7C3AED;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 18px;
+  line-height: 1.8;
+  color: var(--charcoal);
+  background: #fff;
+}
+
+/* ─── Site Header ──────────────────────────────────────────────────────────── */
+
+.site-header {
+  background: var(--navy);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  height: 68px;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.logo-img {
+  height: 52px;
+  width: auto;
+}
+
+.main-nav {
+  display: flex;
+  gap: 4px;
+  margin-left: auto;
+}
+
+.nav-link {
+  font-family: 'Poppins', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+  padding: 8px 14px;
+  border-radius: 4px;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: var(--gold);
+}
+
+/* Brand guide Section 07: CTA button — Background: #C07810, Text: #FFFFFF */
+.btn-login {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+  background: var(--gold);
+  text-decoration: none;
+  border-radius: 6px;
+  padding: 8px 20px;
+  min-height: 48px;
+  white-space: nowrap;
+}
+
+.btn-login:hover {
+  background: var(--gold-dark);
+  color: #ffffff;
+}
+
+/* ─── Layout ───────────────────────────────────────────────────────────────── */
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.wiki-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.wiki-card {
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 2px 16px rgba(30, 58, 95, 0.08);
+  border: 1px solid rgba(74, 104, 135, 0.14);
+  padding: 20px;
+}
+
+.wiki-card h2 {
+  margin: 0 0 12px 0;
+  font-family: 'Poppins', sans-serif;
+  color: var(--navy);
+  font-size: 22px;
+}
+
+.wiki-card a {
+  color: var(--gold);
+  text-decoration: underline;
+}
+
+/* ─── Hero ─────────────────────────────────────────────────────────────────── */
+
+.wiki-hero {
+  position: relative;
+  width: 100%;
+  margin-bottom: 0;
+  min-height: 560px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background: #1E3A5F url("/images/help-center-hero.jpg") center/cover no-repeat;
+  color: #fff;
+}
+
+.wiki-hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: rgba(30, 58, 95, 0.68);
+}
+
+.wiki-hero-inner {
+  position: relative;
+  z-index: 1;
+  padding-top: 0;
+  padding-bottom: 0;
+  max-width: 800px;
+  width: 100%;
+}
+
+.wiki-hero h1 {
+  margin: 0 0 10px 0;
+  font-family: "Poppins", sans-serif;
+  font-size: clamp(36px, 5vw, 56px);
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.wiki-hero p {
+  margin: 0 0 18px 0;
+  color: rgba(255, 255, 255, 0.95);
+  font-size: 18px;
+}
+
+.wiki-search-form {
+  display: flex;
+  gap: 10px;
+  margin-top: 28px;
+  margin-bottom: 12px;
+}
+
+.wiki-search-form input {
+  flex: 1;
+  min-width: 260px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  padding: 12px 16px;
+  font-size: 16px;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.wiki-search-form button {
+  border: none;
+  border-radius: 8px;
+  background: var(--gold);
+  color: #ffffff;
+  padding: 12px 20px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  min-height: 48px;
+}
+
+.wiki-search-form button:hover {
+  background: var(--gold-dark);
+}
+
+.wiki-hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.85);
+  margin-top: 16px;
+}
+
+/* ─── Hero quick-filter chips ──────────────────────────────────────────────── */
+
+.chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.chip {
+  display: inline-block;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 999px;
+  padding: 6px 14px;
+  color: #fff;
+  text-decoration: none;
+  font-size: 13px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  transition: background 0.15s;
+}
+
+.chip:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.chip-active {
+  background: #fff;
+  color: var(--navy);
+}
+
+/* Chips rendered outside the hero (e.g. search results page) get dark styling */
+.container .chip {
+  border-color: #cbd5e1;
+  color: var(--navy);
+}
+
+.container .chip:hover {
+  background: var(--off-white);
+}
+
+.container .chip-active {
+  background: var(--navy);
+  color: #fff;
+}
+
+/* ─── Category Section ─────────────────────────────────────────────────────── */
+
+.category-section {
+  margin-bottom: 32px;
+}
+
+.category-section h2 {
+  margin: 0 0 20px;
+  font-family: "Poppins", sans-serif;
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--navy);
+}
+
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+/* Service-branded category cards — mirrors website ServiceCard.astro */
+.svc-category-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  background: #fff;
+  border-radius: 10px;
+  border-top: 4px solid var(--card-accent, var(--navy));
+  box-shadow: 0 2px 16px rgba(30, 58, 95, 0.08);
+  padding: 24px 20px 20px;
+  gap: 8px;
+  transition: transform 0.2s, box-shadow 0.2s;
+  overflow: visible;
+}
+
+.svc-category-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 32px rgba(30, 58, 95, 0.14);
+}
+
+/* Hover subcategory dropdown */
+.subcategory-dropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  z-index: 200;
+  background: #fff;
+  border-radius: 8px;
+  border: 1px solid rgba(30, 58, 95, 0.12);
+  box-shadow: 0 8px 24px rgba(30, 58, 95, 0.15);
+  padding: 8px;
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 0.18s ease, transform 0.18s ease;
+  pointer-events: none;
+}
+
+.svc-category-card:hover .subcategory-dropdown {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.subcategory-link {
+  display: block;
+  padding: 8px 10px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  color: var(--charcoal);
+  text-decoration: none;
+  border-radius: 4px;
+  border-left: 3px solid transparent;
+  transition: background 0.12s, border-color 0.12s, color 0.12s;
+}
+
+.subcategory-link:hover {
+  background: var(--off-white);
+  border-left-color: var(--card-accent, var(--navy));
+  color: var(--navy);
+}
+
+.subcategory-browse-all {
+  display: block;
+  padding: 8px 10px;
+  margin-top: 4px;
+  border-top: 1px solid #e2e8f0;
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--card-accent, var(--navy));
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background 0.12s;
+}
+
+.subcategory-browse-all:hover {
+  background: var(--off-white);
+}
+
+.svc-category-icon {
+  font-size: 30px;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.svc-category-title {
+  font-family: "Poppins", sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--navy);
+  margin: 0;
+}
+
+.svc-category-meta {
+  font-size: 14px;
+  color: #64748b;
+  margin: 0;
+}
+
+.svc-category-cta {
+  margin-top: auto;
+  padding-top: 10px;
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--card-accent, var(--navy));
+}
+
+/* ─── Review Table ─────────────────────────────────────────────────────────── */
+
+.review-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.review-table th,
+.review-table td {
+  border-bottom: 1px solid #e2e8f0;
+  padding: 8px 6px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.review-table th {
+  font-family: "Poppins", sans-serif;
+  color: var(--navy);
+}
+
+/* ─── Search Results ───────────────────────────────────────────────────────── */
+
+.results-list {
+  list-style: none;
+  padding: 0;
+  margin: 14px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.result-item {
+  padding: 14px 16px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.result-item:hover {
+  border-color: var(--steel);
+  box-shadow: 0 2px 8px rgba(30, 58, 95, 0.07);
+}
+
+.result-item a {
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--navy);
+  text-decoration: underline;
+}
+
+.result-item a:hover {
+  color: var(--gold);
+}
+
+.result-meta {
+  font-size: 13px;
+  color: #64748b;
+  margin-top: 4px;
+}
+
+/* ─── Article HTML — Brand Guide Typography ────────────────────────────────── */
+/*
+ * help.kecktech.net is a senior-facing interface per the brand guide.
+ * Rules: 18px min body, Poppins headings, Open Sans body, underlined Gold links,
+ * WCAG AAA contrast, 1.8 line-height minimum.
+ */
+
+.article-html {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 18px;
+  line-height: 1.8;
+  color: var(--charcoal);
+}
+
+.article-html p,
+.article-html ul,
+.article-html ol,
+.article-html blockquote {
+  margin-top: 0;
+  margin-bottom: 1.2em;
+  line-height: 1.8;
+}
+
+.article-html li {
+  margin-bottom: 0.4em;
+}
+
+/* Heading scale per brand guide: H1 36px/700, H2 28px/600, H3 22px/600 */
+.article-html h1 {
+  font-family: "Poppins", sans-serif;
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-top: 1.4em;
+  margin-bottom: 0.5em;
+  line-height: 1.2;
+}
+
+.article-html h2 {
+  font-family: "Poppins", sans-serif;
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--navy);
+  margin-top: 1.3em;
+  margin-bottom: 0.5em;
+  line-height: 1.25;
+}
+
+.article-html h3 {
+  font-family: "Poppins", sans-serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--navy);
+  margin-top: 1.2em;
+  margin-bottom: 0.4em;
+  line-height: 1.3;
+}
+
+.article-html h4 {
+  font-family: "Poppins", sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--navy);
+  margin-top: 1.1em;
+  margin-bottom: 0.4em;
+}
+
+/* Links: Gold + underlined — brand guide mandates underline for senior interfaces */
+.article-html a {
+  color: var(--gold);
+  text-decoration: underline;
+}
+
+.article-html a:hover {
+  color: var(--gold-dark);
+}
+
+/* Code: Courier New / JetBrains Mono per brand guide */
+.article-html code {
+  font-family: 'Courier New', 'JetBrains Mono', monospace;
+  font-size: 15px;
+  background: #f1f5f9;
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: var(--navy);
+}
+
+.article-html pre {
+  font-family: 'Courier New', 'JetBrains Mono', monospace;
+  font-size: 15px;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 16px;
+  overflow-x: auto;
+  line-height: 1.6;
+}
+
+.article-html pre code {
+  background: none;
+  padding: 0;
+  font-size: inherit;
+}
+
+.article-html blockquote {
+  border-left: 4px solid var(--steel);
+  padding-left: 16px;
+  color: #555;
+  font-style: normal;
+}
+
+.article-html table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 16px;
+  margin-bottom: 1.2em;
+}
+
+.article-html th,
+.article-html td {
+  border: 1px solid #e2e8f0;
+  padding: 10px 12px;
+  text-align: left;
+}
+
+.article-html th {
+  background: var(--off-white);
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  color: var(--navy);
+}
+
+.article-html hr {
+  border: none;
+  border-top: 1px solid #e2e8f0;
+  margin: 2em 0;
+}
+
+/* ─── Help Center 2-Column Layout ─────────────────────────────────────────── */
+
+.help-layout {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 32px;
+  align-items: start;
+  padding-top: 32px;
+  padding-bottom: 48px;
+}
+
+.help-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: sticky;
+  top: 88px;
+}
+
+.help-content {
+  min-width: 0;
+}
+
+/* ─── Article Animated Brand Background ────────────────────────────────────── */
+
+@keyframes gradientFlow {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.page-article {
+  background: linear-gradient(135deg, #1E3A5F 0%, #0D6E6E 33%, #4A6887 66%, #1E3A5F 100%);
+  background-size: 400% 400%;
+  animation: gradientFlow 20s ease infinite;
+  min-height: 100vh;
+  padding: 32px 0 48px;
+}
+
+.page-article .wiki-card {
+  background: rgba(255, 255, 255, 0.97);
+  backdrop-filter: blur(2px);
+}
+
+/* ─── Site Footer ──────────────────────────────────────────────────────────── */
+
+.site-footer {
+  background: var(--navy);
+  color: #94a3b8;
+  font-size: 15px;
+  margin-top: auto;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1.6fr 1fr 1.4fr;
+  gap: 48px;
+  padding-top: 64px;
+  padding-bottom: 48px;
+  align-items: start;
+}
+
+.footer-logo {
+  max-width: 110px;
+  height: auto;
+  margin-bottom: 14px;
+}
+
+.footer-tagline {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #94a3b8;
+  font-style: italic;
+}
+
+.footer-heading {
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #fff;
+  margin: 0 0 16px;
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links li {
+  margin-bottom: 10px;
+}
+
+.footer-links a {
+  color: #94a3b8;
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.2s;
+}
+
+.footer-links a:hover {
+  color: var(--steel);
+}
+
+.footer-contact {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-contact li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 12px;
+  font-size: 14px;
+}
+
+.footer-contact svg {
+  flex-shrink: 0;
+  margin-top: 3px;
+  color: #94a3b8;
+}
+
+.footer-contact a {
+  color: #94a3b8;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.footer-contact a:hover {
+  color: var(--steel);
+}
+
+.footer-hours {
+  font-size: 13px;
+  padding-left: 24px;
+}
+
+.footer-bar {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 20px 24px;
+  text-align: center;
+  font-size: 13px;
+  color: rgba(148, 163, 184, 0.6);
+}
+
+/* ─── Responsive ───────────────────────────────────────────────────────────── */
+
+@media (max-width: 1024px) {
+  .help-layout {
+    grid-template-columns: 240px 1fr;
+    gap: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .help-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .help-sidebar {
+    position: static;
+  }
+
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+  }
+}
+
+@media (max-width: 900px) {
+  .category-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .wiki-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .wiki-hero {
+    min-height: auto;
+    padding: 60px 0;
+  }
+
+  .wiki-hero-inner {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .wiki-search-form {
+    flex-direction: column;
+  }
+
+  .category-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+}
