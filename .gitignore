@@ -1,0 +1,7 @@
+.env
+*.env
+volumes/
+data/
+secrets/
+*.pem
+*.key

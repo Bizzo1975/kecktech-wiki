@@ -1,0 +1,45 @@
+networks:
+  kecktech_front:
+    external: true
+  kecktech_internal:
+    external: true
+
+volumes:
+  custom_wiki_db_data:
+
+services:
+  custom-wiki-db:
+    image: postgres:15-alpine
+    container_name: custom-wiki-db
+    restart: always
+    mem_limit: 256m
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U customwiki"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+    environment:
+      - POSTGRES_DB=customwiki
+      - POSTGRES_USER=customwiki
+      - POSTGRES_PASSWORD=KecktechCustomWiki2026
+    volumes:
+      - custom_wiki_db_data:/var/lib/postgresql/data
+    networks:
+      - kecktech_internal
+
+  custom-wiki:
+    image: vboxuser-custom-wiki:latest
+    container_name: custom-wiki
+    restart: always
+    mem_limit: 512m
+    ports:
+      - "8080:3011"
+    environment:
+      - DATABASE_URL=postgresql://customwiki:KecktechCustomWiki2026@custom-wiki-db:5432/customwiki
+      - NODE_ENV=production
+    depends_on:
+      custom-wiki-db:
+        condition: service_healthy
+    networks:
+      - kecktech_front
+      - kecktech_internal
