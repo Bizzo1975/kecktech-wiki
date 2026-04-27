@@ -1,0 +1,22 @@
+name: Deploy to Prod — kecktech wiki
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Deploy to prod-wiki-01 (10.20.0.145)
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.PROD_SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd /opt/docker/wiki
+            git pull origin main
+            docker compose up -d
+            docker ps

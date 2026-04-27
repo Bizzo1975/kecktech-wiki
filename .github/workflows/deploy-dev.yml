@@ -1,0 +1,21 @@
+name: Deploy to Dev — kecktech wiki
+
+on:
+  push:
+    branches: [dev]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to dev-wiki-01 (10.30.0.145)
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.DEV_SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd /opt/docker/wiki
+            git pull origin dev
+            docker compose up -d
+            docker ps
