@@ -9,14 +9,20 @@ jobs:
     runs-on: self-hosted
     environment: production
     steps:
-      - name: Deploy to prod-wiki-01 (10.20.0.145)
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.PROD_SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            cd /opt/docker/wiki
-            git pull origin main
-            docker compose up -d
-            docker ps
+      - name: Deploy to prod-wiki-01 (VMID 232)
+        shell: bash
+        env:
+          SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SSH_HOST: ${{ secrets.PROD_SSH_HOST }}
+          SSH_USER: ${{ secrets.SSH_USER }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "$SSH_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/deploy_key $SSH_USER@$SSH_HOST bash -s <<'DEPLOY'
+          cd /opt/docker/wiki
+          git pull origin main
+          docker compose up -d
+          docker ps
+          DEPLOY
+          rm -f ~/.ssh/deploy_key
