@@ -9,20 +9,31 @@ jobs:
     runs-on: self-hosted
     environment: production
     steps:
-      - name: Deploy to prod-wiki-01 (VMID 232)
-        shell: bash
+      - name: Write SSH key
+        shell: powershell
         env:
           SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        run: |
+          New-Item -ItemType Directory -Path "$env:USERPROFILE\.ssh" -Force | Out-Null
+          $env:SSH_KEY | Out-File -FilePath "$env:USERPROFILE\.ssh\deploy_key" -Encoding ascii -NoNewline
+          icacls "$env:USERPROFILE\.ssh\deploy_key" /inheritance:r /grant:r "${env:USERNAME}:(R)" | Out-Null
+
+      - name: Deploy to prod-wiki-01 (VMID 232)
+        shell: powershell
+        env:
           SSH_HOST: ${{ secrets.PROD_SSH_HOST }}
           SSH_USER: ${{ secrets.SSH_USER }}
         run: |
-          mkdir -p ~/.ssh
-          echo "$SSH_KEY" > ~/.ssh/deploy_key
-          chmod 600 ~/.ssh/deploy_key
-          ssh -o StrictHostKeyChecking=no -i ~/.ssh/deploy_key $SSH_USER@$SSH_HOST bash -s <<'DEPLOY'
+          $keyPath = "$env:USERPROFILE\.ssh\deploy_key"
+          $commands = @"
           cd /opt/docker/wiki
           git pull origin main
           docker compose up -d
           docker ps
-          DEPLOY
-          rm -f ~/.ssh/deploy_key
+          "@
+          $commands | & ssh -o StrictHostKeyChecking=no -i $keyPath "$env:SSH_USER@$env:SSH_HOST" bash -s
+
+      - name: Cleanup SSH key
+        if: always()
+        shell: powershell
+        run: Remove-Item "$env:USERPROFILE\.ssh\deploy_key" -Force -ErrorAction SilentlyContinue
