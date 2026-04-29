@@ -8,31 +8,11 @@ jobs:
   deploy:
     runs-on: self-hosted
     steps:
-      - name: Write SSH key
-        shell: powershell
-        env:
-          SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-        run: |
-          New-Item -ItemType Directory -Path "$env:USERPROFILE\.ssh" -Force | Out-Null
-          $env:SSH_KEY | Out-File -FilePath "$env:USERPROFILE\.ssh\deploy_key" -Encoding ascii -NoNewline
-          icacls "$env:USERPROFILE\.ssh\deploy_key" /inheritance:r /grant:r "${env:USERNAME}:(R)" | Out-Null
-
       - name: Deploy to dev-wiki-01 (VMID 732)
         shell: powershell
-        env:
-          SSH_HOST: ${{ secrets.DEV_SSH_HOST }}
-          SSH_USER: ${{ secrets.SSH_USER }}
         run: |
-          $keyPath = "$env:USERPROFILE\.ssh\deploy_key"
-          $commands = @"
-          cd /opt/docker/wiki
-          git pull origin dev
-          docker compose up -d
-          docker ps
-          "@
-          $commands | & ssh -o StrictHostKeyChecking=no -i $keyPath "$env:SSH_USER@$env:SSH_HOST" bash -s
-
-      - name: Cleanup SSH key
-        if: always()
-        shell: powershell
-        run: Remove-Item "$env:USERPROFILE\.ssh\deploy_key" -Force -ErrorAction SilentlyContinue
+          $sshExe = "C:\Program Files\Git\usr\bin\ssh.exe"
+          $keyPath = "C:\Users\jonkd\.ssh\id_ed25519"
+          $script = "cd /opt/docker/wiki && git pull origin dev && docker compose up -d --build && echo DEPLOY_SUCCESS"
+          & $sshExe -o StrictHostKeyChecking=no -o BatchMode=yes -i $keyPath kecktech@10.30.0.145 $script
+          if ($LASTEXITCODE -ne 0) { throw "Deploy failed with exit code $LASTEXITCODE" }
