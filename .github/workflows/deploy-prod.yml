@@ -15,5 +15,5 @@ jobs:
           $sshExe = "C:\Program Files\Git\usr\bin\ssh.exe"
           $keyPath = "C:\Users\jonkd\.ssh\id_ed25519"
           $script = "cd /opt/docker/wiki && git fetch origin && git reset --hard origin/main && docker compose up -d --build && echo DEPLOY_SUCCESS"
-          & $sshExe -o StrictHostKeyChecking=no -o BatchMode=yes -i $keyPath kecktech@100.103.161.15 $script
+          & $sshExe -o StrictHostKeyChecking=no -o UserKnownHostsFile=NUL -o BatchMode=yes -i $keyPath kecktech@100.103.161.15 $script
           if ($LASTEXITCODE -ne 0) { throw "Deploy failed with exit code $LASTEXITCODE" }
