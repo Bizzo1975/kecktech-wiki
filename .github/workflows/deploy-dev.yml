@@ -8,8 +8,12 @@ jobs:
   deploy:
     runs-on: self-hosted
     steps:
+      - name: Set execution policy
+        shell: powershell
+        run: Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force
+
       - name: Deploy to dev-wiki-01 (VMID 732)
-        shell: pwsh
+        shell: powershell
         run: |
           $sshExe = "C:\Program Files\Git\usr\bin\ssh.exe"
           $keyPath = "C:\Users\jonkd\.ssh\id_ed25519"
