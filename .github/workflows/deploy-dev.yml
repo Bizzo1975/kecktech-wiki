@@ -9,7 +9,7 @@ jobs:
     runs-on: self-hosted
     steps:
       - name: Deploy to dev-wiki-01 (VMID 732)
-        shell: powershell
+        shell: pwsh
         run: |
           $sshExe = "C:\Program Files\Git\usr\bin\ssh.exe"
           $keyPath = "C:\Users\jonkd\.ssh\id_ed25519"
