@@ -6,16 +6,13 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
-      - name: Deploy to dev-wiki-01 (10.30.0.145)
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.DEV_SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            cd /opt/docker/wiki
-            git pull origin dev
-            docker compose up -d
-            docker ps
+      - name: Deploy to dev-wiki-01 (VMID 732)
+        shell: powershell
+        run: |
+          $sshExe = "C:\Program Files\Git\usr\bin\ssh.exe"
+          $keyPath = "C:\Users\jonkd\.ssh\id_ed25519"
+          $script = "cd /opt/docker/wiki && git fetch origin && git reset --hard origin/dev && docker compose up -d --build && echo DEPLOY_SUCCESS"
+          & $sshExe -o BatchMode=yes -i $keyPath kecktech@10.30.0.145 $script
+          if ($LASTEXITCODE -ne 0) { throw "Deploy failed with exit code $LASTEXITCODE" }
