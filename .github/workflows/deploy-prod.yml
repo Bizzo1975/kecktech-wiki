@@ -1,4 +1,4 @@
-name: Deploy to Prod — kecktech wiki
+﻿name: Deploy to Prod — kecktech wiki
 
 on:
   push:
@@ -14,6 +14,6 @@ jobs:
         run: |
           $sshExe = "C:\Program Files\Git\usr\bin\ssh.exe"
           $keyPath = "C:\Users\jonkd\.ssh\id_ed25519"
-          $script = "cd /opt/docker/wiki && git pull origin main && docker compose up -d --build && echo DEPLOY_SUCCESS"
-          & $sshExe -o StrictHostKeyChecking=no -o BatchMode=yes -i $keyPath kecktech@10.20.0.145 $script
+          $script = "cd /opt/docker/wiki && git fetch origin && git reset --hard origin/main && docker compose up -d --build && echo DEPLOY_SUCCESS"
+          & $sshExe -o StrictHostKeyChecking=no -o BatchMode=yes -i $keyPath kecktech@100.103.161.15 $script
           if ($LASTEXITCODE -ne 0) { throw "Deploy failed with exit code $LASTEXITCODE" }
