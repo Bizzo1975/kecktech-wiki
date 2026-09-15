@@ -55,6 +55,7 @@ try {
     }
 
     Write-Output 'Repository guidance negative tests passed.'
+    $global:LASTEXITCODE = 0
 } finally {
     if (Test-Path -LiteralPath $testRoot -PathType Container) {
         $resolvedTemp = [System.IO.Path]::GetFullPath([System.IO.Path]::GetTempPath())
