@@ -1,0 +1,4 @@
+PROJECT_INSTRUCTIONS.md text eol=lf
+.cursor/rules/*.mdc text eol=lf
+.agents/skills/kecktech-operations/SKILL.md text eol=lf
+.agents/skills/kecktech-operations/references/startup-prompt.md text eol=lf

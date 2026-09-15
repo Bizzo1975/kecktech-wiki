@@ -21,7 +21,11 @@ foreach ($property in $manifest.files.psobject.Properties) {
         $failures.Add("Missing shared policy file: $($property.Name)")
         continue
     }
-    $actualHash = (Get-FileHash -Algorithm SHA256 -LiteralPath $candidate).Hash.ToLowerInvariant()
+    # Git may materialize text as CRLF on Windows even when the committed policy
+    # content is identical. Hash canonical LF text so validation is portable.
+    $normalizedContent = (Get-Content -Raw -LiteralPath $candidate).Replace("`r`n", "`n")
+    $bytes = [System.Text.Encoding]::UTF8.GetBytes($normalizedContent)
+    $actualHash = [Convert]::ToHexString([System.Security.Cryptography.SHA256]::HashData($bytes)).ToLowerInvariant()
     if ($actualHash -ne [string]$property.Value) {
         $failures.Add("Shared policy drift: $($property.Name)")
     }
