@@ -11,16 +11,34 @@ export function Header() {
         </a>
 
         <nav className="main-nav" aria-label="Primary navigation">
-          <a href="https://www.kecktech.net/" className="nav-link">Home</a>
-          <a href="https://www.kecktech.net/about" className="nav-link">About</a>
-          <a href="https://www.kecktech.net/services" className="nav-link">Services</a>
-          <a href="https://www.kecktech.net/pricing" className="nav-link">Pricing</a>
-          <a href="https://help.kecktech.net" className="nav-link active">Help</a>
-          <a href="https://www.kecktech.net/contact" className="nav-link">Contact</a>
+          <a href="https://www.kecktech.net/" className="nav-link">
+            Home
+          </a>
+          <a href="https://www.kecktech.net/about" className="nav-link">
+            About
+          </a>
+          <a href="https://www.kecktech.net/services" className="nav-link">
+            Services
+          </a>
+          <a href="https://www.kecktech.net/pricing" className="nav-link">
+            Pricing
+          </a>
+          <a href="https://www.kecktech.net/blog" className="nav-link">
+            Blog
+          </a>
+          <a href="https://www.kecktech.net/demos" className="nav-link">
+            Demos
+          </a>
+          <a href="https://help.kecktech.net" className="nav-link active">
+            Help
+          </a>
+          <a href="https://www.kecktech.net/contact" className="nav-link">
+            Contact
+          </a>
         </nav>
 
-        <a href="https://portal.kecktech.net" className="btn-login">
-          Customer Login
+        <a href="https://www.kecktech.net/contact" className="btn-login">
+          Contact Us
         </a>
       </div>
     </header>

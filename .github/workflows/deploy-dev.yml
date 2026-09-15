@@ -1,8 +1,7 @@
 name: Deploy to Dev — kecktech wiki
 
 on:
-  push:
-    branches: [dev]
+  workflow_dispatch:
 
 jobs:
   deploy:
@@ -13,6 +12,6 @@ jobs:
         run: |
           $sshExe = "C:\Program Files\Git\usr\bin\ssh.exe"
           $keyPath = "C:\Users\jonkd\.ssh\id_ed25519"
-          $script = "cd /opt/docker/wiki && git fetch origin && git reset --hard origin/dev && docker compose up -d --build && echo DEPLOY_SUCCESS"
-          & $sshExe -o BatchMode=yes -i $keyPath kecktech@10.30.0.145 $script
+          $script = "cd /opt/docker/wiki && git fetch origin dev && git merge --ff-only origin/dev && docker compose up -d --build && echo DEPLOY_SUCCESS"
+          & $sshExe -o StrictHostKeyChecking=yes -o BatchMode=yes -i $keyPath kecktech@10.30.0.145 $script
           if ($LASTEXITCODE -ne 0) { throw "Deploy failed with exit code $LASTEXITCODE" }

@@ -1,0 +1,14 @@
+---
+description: Wiki content, rendering, API, accessibility, and release controls
+globs: "**/*.{ts,tsx,js,jsx,md,html,prisma}"
+alwaysApply: false
+---
+
+# Wiki controls
+
+- Strict types and schema validation; sanitize stored/rendered HTML and authorize edits server-side.
+- No placeholder articles, simulated migration/publish success, fake health, or silent fallback.
+- Preserve content history and links; migrations require backup, rehearsal, compatibility, and rollback.
+- Meet WCAG 2.2 AA and test search, navigation, article rendering, editing, auth, and failure states.
+- Run article validation, type-check, tests when present, and build. Missing tests are a reported gap.
+- Production requires immutable artifact, approval, rollback, and post-deploy evidence.
